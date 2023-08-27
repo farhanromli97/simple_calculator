@@ -15,9 +15,9 @@ function App() {
 
   useEffect(()=>{console.log(display)}, [display])
 
-  const handleClick = (event) => {
-    setDisplay([...display, event.target.innerText])
-  }
+  // const handleClick = (event) => {
+  //   setDisplay([...display, event.target.innerText])
+  // }
 
   const handleNumber = (event) => {
     if(number.length>= 8){
@@ -27,12 +27,21 @@ function App() {
       setDisplay([...display, event.target.innerText])
     }  
   }
+
+      // }else if(operationArray.includes(data[data.length - 1]) &&  operationArray.includes(event.target.innerText)){
+    //   debugger
+    //   data[data.length - 1] = event.target.innerText
+    //   // debugger
+    //   setDisplay([])
+    //   // setDisplay(data)}
   const handleOperation = (event) => { 
     const operationArray = ['+', '-', 'x', '÷']
-    if(operationArray.includes(display[display.length - 1]) &&  operationArray.includes(event.target.innerText)){
     const data = display
-    data[-1] = event.target.innerText
-    setDisplay(data)
+    if(display.length == 0){
+      alert('Invalid format')
+    }else if(operationArray.includes(data[data.length - 1])){
+    data[data.length - 1] = event.target.innerText
+    setDisplay([...data])
     }else{
     setDisplay([...display, event.target.innerText])
     setNumber([])
@@ -43,14 +52,14 @@ function App() {
   const calculateTotal = () =>{   
     try {
       // join the element into and remove comma separator and replace X and ÷ with * and / respectively
-      const mathExpression = [...display].join().replaceAll(',', '').replaceAll('x', '*').replaceAll('÷', '/') 
+      const mathExpression = display.join().replaceAll(',', '').replaceAll('x', '*').replaceAll('÷', '/') 
       const total = stringMath(mathExpression)
       // convert the total(type number) into string and subsequently into an Array
       const newArray = Array.from(total.toString()) 
       setDisplay(newArray)
       setNumber(newArray)
     } catch (error) {
-      console.log(error)
+      alert('Invalid format')
     }
   }
 
