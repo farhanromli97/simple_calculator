@@ -28,20 +28,17 @@ function App() {
     }  
   }
 
-      // }else if(operationArray.includes(data[data.length - 1]) &&  operationArray.includes(event.target.innerText)){
-    //   debugger
-    //   data[data.length - 1] = event.target.innerText
-    //   // debugger
-    //   setDisplay([])
-    //   // setDisplay(data)}
+
   const handleOperation = (event) => { 
     const operationArray = ['+', '-', 'x', '÷']
-    const data = display
+    let data = [...display]
     if(display.length == 0){
       alert('Invalid format')
     }else if(operationArray.includes(data[data.length - 1])){
     data[data.length - 1] = event.target.innerText
-    setDisplay([...data])
+    setDisplay(data)
+
+
     }else{
     setDisplay([...display, event.target.innerText])
     setNumber([])
